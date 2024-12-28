@@ -1,0 +1,80 @@
+{{define "styles"}}
+<link rel="stylesheet" href="/ui/css/product.css" />
+{{end}}
+
+{{define "main"}}
+<div class="product__grid">
+  {{range .Data.products}}
+  <div class="product__card">
+    <div class=" row-centered">
+      <a href="/product?id={{.Product.ID}}">
+        <img src="uploads/product-images/{{.Product.ImageFilename}}" alt={{.Product.Title}} class=" product__image" />
+      </a>
+    </div>
+    <div class="row-centered">
+      <h3 class="product__title">
+        <a href=" /product?id={{.Product.ID}}">{{.Product.Title}}</a>
+      </h3>
+    </div>
+    <div class="product__rating">
+      <div class="row-centered">
+        {{range Iterate 0 .Rating.Whole}}
+        <svg class="size-4 star--bright">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{end}}
+        {{if .Rating.Half}}
+        <svg class="size-4 star--light">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{range Iterate .Rating.Whole 4}}
+        <svg class="size-4 star-dark">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{end}}
+        {{else}}
+        {{range Iterate .Rating.Whole 5}}
+        <svg class="size-4">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{end}}
+        {{end}}
+      </div>
+      <p class="text--small">({{.NumReviews}})</p>
+    </div>
+    <div class="row-centered">
+      <p class="product__desc--s">{{Head .Product.Description 80}}</p>
+    </div>
+    <div class="container__absolute">
+      <div class="vendor-logo-container centered">
+        <a href=" /vendor?id={{.Vendor.User.ID}}">
+          <img src="uploads/vendor-logos/{{.Vendor.LogoFilename}}" alt="Vendor logo" class="vendor__logo" />
+        </a>
+      </div>
+    </div>
+    <div class="container__absolute">
+      <details class="product__details highlight">
+        <summary>{{T "Pricing" $.Lang}}</summary>
+        <div class="details--grid">
+          {{range .Prices}}
+          <div class="row-end">
+            <p>{{.Quantity}}g</p>
+          </div>
+          <div class="row-end">
+            <p> {{.Price}}€</p>
+          </div>
+          {{end}}
+        </div>
+      </details>
+    </div>
+    <div class="row--end">
+      <div class="vendor-name">
+        <a class="text--small" href="/vendor?id={{.Vendor.User.ID}}">
+          {{.Vendor.User.Username}}
+        </a>
+      </div>
+    </div>
+  </div>
+  {{end}}
+</div>
+{{end}}

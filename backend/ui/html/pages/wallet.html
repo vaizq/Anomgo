@@ -1,0 +1,59 @@
+{{define "main"}}
+<div class="row-centered">
+    <div class="col-centered gap--m">
+        <div class="pop padding--m">
+            <div class="row-centered padding--m">
+                <h2>{{T "Wallet" $.Lang}}</h2>
+            </div>
+            <div class="row-centered">
+                <p class="highlight--important">
+                    This is your XMR wallet where you can deposit funds to create orders.<br />
+                    This is a single-time address, so it is changed after each deposit.<br />
+                    Balance is updated after 9 confirmation blocks.<br />
+                    See <a href="/about">about</a> for information on how to use <a
+                        href="https://monero.com">monero</a>.
+                </p>
+            </div>
+            <table>
+                <thead>
+                    <th>{{T "Address" $.Lang}}</th>
+                    <th>XMR</th>
+                    <th>EUR</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        {{with .Data.wallet}}
+                        <td class="addressXMR">{{.Address}}</td>
+                        <td>{{XMR2Decimal .Balance}} XMR</td>
+                        <td>{{XMR2Fiat .Balance}} €</td>
+                        {{end}}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form class="pop padding--m" action="/user/withdrawal" method="post">
+            <div class="row-centered padding--m">
+                <h2>{{T "Withdraw" $.Lang}}</h2>
+            </div>
+            <div class="row-centered">
+                <p class="highlight--important">
+                    Enter a monero address where you want to withdraw your funds.<br />
+                    Be sure to set it right. In case of a misspell, your funds will be lost.<br />
+                    We collect 1$ fee from each out-transfer.<br />
+                </p>
+            </div>
+            <div class="form__field">
+                <label>{{T "Monero address" $.Lang}}</label>
+                <input class="input--text" type="text" name="Address" minlength="95" maxlength="95"/>
+            </div>
+            <div class="form__field">
+                <label>{{T "Amount" $.Lang}} EUR</label>
+                <input class="input--number" type="number" name="AmountFiat"/>
+            </div>
+            <div class="form__field--right">
+                <button type="submit">{{T "Withdraw" $.Lang}}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{{end}}

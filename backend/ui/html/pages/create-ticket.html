@@ -1,0 +1,32 @@
+{{define "main"}}
+<form class="form--basic" action="/ticket/create" method="post">
+  <div class="form__field">
+    <label>{{T "Subject" $.Lang}}</label>
+    <select type="text" name="Subject" required>
+      <option value="wallet">{{T "wallet" $.Lang}}</option>
+      <option value="order">{{T "order" $.Lang}}</option>
+      <option value="listing">{{T "listing" $.Lang}}</option>
+      <option value="other">{{T "other" $.Lang}}</option>
+    </select>
+  </div>
+  <div class="form__field">
+    <label>{{T "Message" $.Lang}}</label>
+    <textarea name="Message" spellcheck="false"></textarea>
+  </div>
+  <div class="form__field--right">
+    <button type="submit" class="button--visible">{{T "Submit" $.Lang}}</button>
+  </div>
+  {{if .Form}}
+  {{range .Form.FieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{.}}</p>
+  </div>
+  {{end}}
+  {{range .Form.NonFieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{.}}</p>
+  </div>
+  {{end}}
+  {{end}}
+</form>
+{{end}}

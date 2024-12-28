@@ -1,0 +1,28 @@
+{{define "main"}}
+{{with .Data.invoice}}
+<div class="centered">
+  <div class="row-centered padding--l">
+    <p class="highlight--important">
+      Pay the exact amount in one hour to complete your order.<br />
+      See <a href="/about">about</a> for information on how to use <a href="https://monero.com">monero</a>.
+    </p>
+  </div>
+  <table>
+    <thead>
+      <th>product</th>
+      <th>price (XMR)</th>
+      <th>address (XMR)</th>
+    </thead>
+    <tbody>
+      <tr>
+        {{with .Order}}
+        <td>{{.Price.Quantity}}g of {{.Product.Title}}</td>
+        {{end}}
+        <td>{{XMR2Decimal .Invoice.XMRPrice}}</td>
+        <td><code class="addressXMR">{{.Invoice.Address}}</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{{end}}
+{{end}}

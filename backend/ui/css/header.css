@@ -1,0 +1,23 @@
+header {
+	background-color: var(--color-bg-dark);
+	background: linear-gradient(to bottom, var(--color-bg), var(--color-bg-dark));
+	min-height: 4em;
+	height: fit-content;
+	flex-shrink: 0;
+	margin-bottom: 2em;
+}
+
+header a {
+	padding: 1em;
+}
+
+header input {
+	color: var(--color-text-primary);
+	font-weight: bold;
+	padding: 1em;
+}
+
+.header-navs {
+	padding-left: 1em;
+	padding-right: 1em;
+}

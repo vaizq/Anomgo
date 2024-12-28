@@ -1,0 +1,54 @@
+{{define "main"}}
+<div class="centered gap--m">
+    {{if not .Data.isVendor}}
+    <form class="form--basic pop padding--m" action="/vendor/pledge" method="post" enctype="multipart/form-data">
+        <div class="row-centered padding--m">
+            <h2>{{T "Become a vendor" $.Lang}}</h2>
+        </div>
+        <div class="row-centered">
+            <p class="highlight--important">
+                In order to become a vendor, you need to pay an pledge of 1XMR.<br />
+                Your pledge will be returned when you are done as a vendor.<br />
+            </p>
+        </div>
+        <div class="form__field">
+            <label for="logo">{{T "Logo" $.Lang}}</label>
+            <input id="logo" type="file" name="logo" accept="image/*" required />
+        </div>
+        <div class="form__field--right">
+            <button type="submit">{{T "Become vendor" $.Lang}}</button>
+        </div>
+    </form>
+    {{end}}
+    <form class="form--basic minw-m pop padding--m" action="/user/change-password" method="post">
+        <div class="row-centered padding--m">
+            <h2>{{T "Change your password" $.Lang}}</h2>
+        </div>
+        <div class=" form__field">
+            <label for="currentPassword">{{T "Current password" $.Lang}}</label>
+            <input id="currentPassword" class="input--text" type="password" name="Password" required />
+        </div>
+        <div class="form__field">
+            <label for="newPassword">{{T "New password" $.Lang}}</label>
+            <input id="newPassword" class="input--text" type="password" name="NewPassword" required />
+        </div>
+        <div class="form__field">
+            <label for="newPasswordCheck">{{T "Confirm new password" $.Lang}}</label>
+            <input id="newPasswordCheck" class="input--text" type="password" name="NewPasswordCheck" required />
+        </div>
+        <div class="form__field--right">
+            <button type="submit">{{T "Submit" $.Lang}}</button>
+        </div>
+    </form>
+    {{if .Form}}
+    <div class="centered">
+        {{range $key, $val := .Form.FieldErrors}}
+        <p class="form-error">{{$key}}: {{$val}}</p>
+        {{end}}
+        {{range .Form.NonFieldErrors}}
+        <p class="form-error">{{.}}</p>
+        {{end}}
+    </div>
+    {{end}}
+</div>
+{{end}}

@@ -1,0 +1,6 @@
+{{define "main"}}
+<div class="centered">
+  <label>{{T "Decrypt to finish 2FA" $.Lang}}</label>
+  <textarea class="gpg padding--m" spellcheck="false" readonly>{{.Data.encryptedMessage}}</textarea>
+</div>
+{{end}}

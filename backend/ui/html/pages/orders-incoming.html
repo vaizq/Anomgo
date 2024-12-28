@@ -1,0 +1,35 @@
+{{define "main"}}
+<div class="centered">
+  <table>
+    <thead>
+      <th>{{T "status" $.Lang}}</th>
+      <th>{{T "product" $.Lang}}</th>
+      <th>{{T "quantity" $.Lang}}</th>
+      <th>{{T "delivery" $.Lang}}</th>
+      <th>{{T "action" $.Lang}}</th>
+    </thead>
+    <tbody>
+      {{range .Data.orders}}
+      <tr>
+        <td><a href="/order?id={{.Order.ID}}">{{T .Order.Status $.Lang}}</a></td>
+        <td><a href="/product?id={{.Product.ID}}">{{.Product.Title}}</a></td>
+        <td>{{.Price.Quantity}}g</td>
+        <td>{{Head .DeliveryMethod.Description 40}}</td>
+        {{if eq .Order.Status "paid"}}
+        <td class="bg-green">
+          <a href="/orders/deliver?id={{.Order.ID}}">{{T "deliver" $.Lang}}</a>
+          <a href="/orders/decline?id={{.Order.ID}}">{{T "decline" $.Lang}}</a>
+        </td>
+        {{else if eq .Order.Status "disputed"}}
+        <td class="bg-red">
+          <a href="/orders/counter-dispute?id={{.Order.ID}}">{{T "handle dispute" $.Lang}}</a>
+        </td>
+        {{else}}
+        <td>none</td>
+        {{end}}
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+</div>
+{{end}}

@@ -1,0 +1,11 @@
+{{define "main"}}
+<div class="centered">
+  <div class="col">
+  <a href="/faq"><h2>FAQ</h2></a>
+  {{if .User}}
+  <a href="/ticket/create"><h2>{{T "Create ticket" $.Lang}}</h2></a>
+  <a href="/ticket/view/all"><h2>{{T "My tickets" $.Lang}}</h2></a>
+  </div>
+  {{end}}
+</div>
+{{end}}

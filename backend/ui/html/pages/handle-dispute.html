@@ -1,0 +1,36 @@
+{{define "main"}}
+<div class="pop gap--m padding--m mobile-container">
+  {{template "order" .}}
+  <hr>
+  <form class="form--basic padding--m" action="/dispute" method="post">
+    {{with .Data.dispute}}
+    <input type="hidden" name="DisputeID" value="{{.ID}}" />
+    <div class="form__field">
+      <label>{{T "Dispute claim" $.Lang}}</label>
+      <textarea class="bg" spellcheck="false" readonly>{{.Claim}}</textarea>
+    </div>
+    {{end}}
+    {{with .Data.counter}}
+    <div class="form__field">
+      <label>{{T "Counter claim" $.Lang}}</label>
+      <textarea class="bg" spellcheck="false" readonly>{{.Claim}}</textarea>
+    </div>
+    {{end}}
+    <div class="form__field">
+        <label>Outcome</label>
+        <select type="text" name="Outcome" required>
+          <option value="vendor won">Vendor won</option>
+          <option value="draw">Draw</option>
+          <option value="customer won">Customer won</option>
+        </select>
+    </div>
+    <div class="form__field">
+      <label>{{T "Reason" $.Lang}}</label>
+      <textarea name="Reason" spellcheck="false"></textarea>
+    </div>
+    <div class="form__field--right">
+      <button type="submit">{{T "submit" $.Lang}}</button>
+    </div>
+  </form>
+</div>
+{{end}}

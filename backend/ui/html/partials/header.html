@@ -1,0 +1,33 @@
+{{define "header"}}
+<header class="col-centered">
+    <div class="row-separated wrap">
+        <div class="header-navs row">
+            {{if .User}}
+            <a href="/products">{{T "products" $.Lang}}</a>
+            <a href="/orders/placed">{{T "orders" $.Lang}}</a>
+            {{end}}
+            {{if .Data.isVendor}}
+            <a href="/orders/incoming">{{T "inbound orders" $.Lang}}</a>
+            <a href="/vendor/create-listing">{{T "sell" $.Lang}}</a>
+            {{end}}
+            <a href="/support">{{T "support" $.Lang}}</a>
+        </div>
+        <div class="header-navs row">
+            <form action="/lang/toggle" method="post">
+                <input type="submit" value="{{$.Lang}}" class="form__input--simple" />
+            </form>
+            {{if .User}}
+            <a href="/user/wallet">{{T "Wallet" $.Lang}} {{XMR2Fiat
+                .Data.wallet.Balance}}€</a>
+            <a href="/user/settings">{{T "Settings" $.Lang}}</a>
+            <form action="/logout" method="post">
+                <input type="submit" value="{{T "logout" $.Lang}}" class="form__input--simple" />
+            </form>
+            {{else}}
+            <a href="/login">{{T "login" $.Lang}}</a>
+            <a href="/register">{{T "register" $.Lang}}</a>
+            {{end}}
+        </div>
+    </div>
+</header>
+{{end}}

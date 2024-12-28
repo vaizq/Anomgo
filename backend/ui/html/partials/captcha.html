@@ -1,0 +1,8 @@
+{{define "captcha"}}
+<div class="col">
+    <label for="captcha">{{T "Captcha" $.Lang}}</label>
+    <input id="captcha" class="captcha-image shadow" type="image" name="CaptchaAnswer" src="/captcha" alt="captcha"
+        width="180px" height="120px" />
+    <p class="text--small mt5" style="max-width: 180px">{{T "Press circle with a cut" $.Lang}}</p>
+</div>
+{{end}}

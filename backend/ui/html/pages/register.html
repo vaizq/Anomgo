@@ -1,0 +1,38 @@
+{{define "main"}}
+<form class="form--basic mw-m" action="/register" method="post">
+  <div class="row-centered padding--m">
+    <h2>{{T "Register" $.Lang}}</h2>
+  </div>
+  <div class="form__field">
+    <label for="username">{{T "username" $.Lang}}</label>
+    <input id="username" class="input--text" type="text" name="Username" required />
+  </div>
+  <div class="form__field">
+    <label for="password">{{T "password" $.Lang}}</label>
+    <input id="password" class="input--text" type="password" name="Password" required />
+  </div>
+  <div class="form__field">
+    <label for="passwordCheck">{{T "password check" $.Lang}}</label>
+    <input id="passwordCheck" class="input--text" type="password" name="PasswordCheck" required />
+  </div>
+  <div class="form__field">
+    <label for="pgpKey">{{T "pgp public key (optional for customers)" $.Lang}}</label>
+    <textarea id="pgpKey" name="PgpKey" spellcheck="false"></textarea>
+  </div>
+  <div class="form__field--right">
+    {{template "captcha" .}}
+  </div>
+  {{if .Form}}
+  {{range .Form.FieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{.}}</p>
+  </div>
+  {{end}}
+  {{range .Form.NonFieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{.}}</p>
+  </div>
+  {{end}}
+  {{end}}
+</form>
+{{end}}

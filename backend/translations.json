@@ -1,0 +1,350 @@
+{
+  "action": {
+    "fi": "toiminto",
+    "se": "åtgärd"
+  },
+  "address": {
+    "fi": "osoite",
+    "se": "adress"
+  },
+  "admin": {
+    "fi": "ylläpitäjä",
+    "se": "admin"
+  },
+  "become a vendor": {
+    "fi": "tule myyjäksi",
+    "se": "bli säljare"
+  },
+  "become vendor": {
+    "fi": "tule myyjäksi",
+    "se": "bli säljare"
+  },
+  "captcha": {
+    "fi": "captcha",
+    "se": "captcha"
+  },
+  "change your password": {
+    "fi": "vaihda salasana",
+    "se": "ändra ditt lösenord"
+  },
+  "confirm new password": {
+    "fi": "vahvista uusi salasana",
+    "se": "bekräfta nytt lösenord"
+  },
+  "counter": {
+    "fi": "vastaväite",
+    "se": "motkrav"
+  },
+  "counter claim": {
+    "fi": "vastaväite",
+    "se": "motkrav"
+  },
+  "create ticket": {
+    "fi": "luo tiketti",
+    "se": "skapa ärende"
+  },
+  "current password": {
+    "fi": "nykyinen salasana",
+    "se": "nuvarande lösenord"
+  },
+  "date": {
+    "fi": "päivämäärä",
+    "se": "datum"
+  },
+  "deadrop (only for orders over 100$)": {
+    "fi": "deadrop (vain yli 100$ tilauksille)",
+    "se": "deadrop (endast för beställningar över 100$)"
+  },
+  "decline": {
+    "fi": "hylkää",
+    "se": "avvisa"
+  },
+  "decline reason": {
+    "fi": "hylkäyksen syy",
+    "se": "avvisningsorsak"
+  },
+  "decrypt to finish 2fa": {
+    "fi": "purkaa 2FA:n loppuun saattamiseksi",
+    "se": "dekryptera för att slutföra 2FA"
+  },
+  "deliver": {
+    "fi": "toimita",
+    "se": "leverera"
+  },
+  "delivery": {
+    "fi": "toimitus",
+    "se": "leverans"
+  },
+  "delivery info": {
+    "fi": "toimitustiedot",
+    "se": "leveransinformation"
+  },
+  "delivery method": {
+    "fi": "toimitustapa",
+    "se": "leveranssätt"
+  },
+  "shipping cost": {
+    "fi": "toimitus kulut",
+    "se": "leveranspris"
+  },
+  "description": {
+    "fi": "kuvaus",
+    "se": "beskrivning"
+  },
+  "details": {
+    "fi": "tiedot",
+    "se": "detaljer"
+  },
+  "dispute": {
+    "fi": "kiista",
+    "se": "tvist"
+  },
+  "dispute claim": {
+    "fi": "kiistan vaatimus",
+    "se": "tvist krav"
+  },
+  "dispute reason": {
+    "fi": "kiistan syy",
+    "se": "tvist orsak"
+  },
+  "grade": {
+    "fi": "arvio",
+    "se": "betyg"
+  },
+  "handle dispute": {
+    "fi": "käsittele kiista",
+    "se": "hantera tvist"
+  },
+  "inbound orders": {
+    "fi": "saapuvat tilaukset",
+    "se": "ingående beställningar"
+  },
+  "listing": {
+    "fi": "listaus",
+    "se": "lista"
+  },
+  "login": {
+    "fi": "kirjaudu",
+    "se": "logga in"
+  },
+  "logo": {
+    "fi": "logo",
+    "se": "logotyp"
+  },
+  "logout": {
+    "fi": "kirjaudu ulos",
+    "se": "logga ut"
+  },
+  "message": {
+    "fi": "viesti",
+    "se": "meddelande"
+  },
+  "monero address": {
+    "fi": "monero-osoite",
+    "se": "monero-adress"
+  },
+  "name": {
+    "fi": "nimi",
+    "se": "namn"
+  },
+  "new password": {
+    "fi": "uusi salasana",
+    "se": "nytt lösenord"
+  },
+  "none": {
+    "fi": "ei mitään",
+    "se": "ingen"
+  },
+  "order": {
+    "fi": "tilaus",
+    "se": "beställning"
+  },
+  "orders": {
+    "fi": "tilaukset",
+    "se": "beställningar"
+  },
+  "other": {
+    "fi": "muu",
+    "se": "annan"
+  },
+  "password": {
+    "fi": "salasana",
+    "se": "lösenord"
+  },
+  "password check": {
+    "fi": "salasanan tarkistus",
+    "se": "lösenords kontroll"
+  },
+  "pending disputes": {
+    "fi": "odottavat kiistat",
+    "se": "väntande tvister"
+  },
+  "pgp public key": {
+    "fi": "pgp julkinen avain",
+    "se": "pgp offentlig nyckel"
+  },
+  "pgp public key (optional for customers)": {
+    "fi": "pgp julkinen avain (valinnainen asiakkaille)",
+    "se": "pgp offentlig nyckel (valfritt för kunder)"
+  },
+  "placed orders": {
+    "fi": "tehdyt tilaukset",
+    "se": "lagda beställningar"
+  },
+  "post (postcard)": {
+    "fi": "posti (postikortti)",
+    "se": "post (vykort)"
+  },
+  "press circle with a cut": {
+    "fi": "paina ympyrää jossa on leikkaus",
+    "se": "tryck på cirkel med snitt"
+  },
+  "price": {
+    "fi": "hinta",
+    "se": "pris"
+  },
+  "pricing": {
+    "fi": "hinnasto",
+    "se": "prissättning"
+  },
+  "product": {
+    "fi": "tuote",
+    "se": "produkt"
+  },
+  "product image": {
+    "fi": "tuotekuva",
+    "se": "produktbild"
+  },
+  "products": {
+    "fi": "tuotteet",
+    "se": "produkter"
+  },
+  "quantity": {
+    "fi": "määrä",
+    "se": "kvantitet"
+  },
+  "reason for decline": {
+    "fi": "hylkäyksen syy",
+    "se": "orsak till avslag"
+  },
+  "refund": {
+    "fi": "palautus",
+    "se": "återbetalning"
+  },
+  "register": {
+    "fi": "rekisteröidy",
+    "se": "registrera"
+  },
+  "response": {
+    "fi": "vastaus",
+    "se": "svar"
+  },
+  "review": {
+    "fi": "arvostele",
+    "se": "recension"
+  },
+  "reviews": {
+    "fi": "arvostelut",
+    "se": "recensioner"
+  },
+  "sell": {
+    "fi": "myy",
+    "se": "sälj"
+  },
+  "send a ticket to admins": {
+    "fi": "lähetä tiketti ylläpitäjille",
+    "se": "skicka ett ärende till admin"
+  },
+  "settings": {
+    "fi": "asetukset",
+    "se": "inställningar"
+  },
+  "status": {
+    "fi": "tila",
+    "se": "status"
+  },
+  "subject": {
+    "fi": "aihe",
+    "se": "ämne"
+  },
+  "submit": {
+    "fi": "lähetä",
+    "se": "skicka"
+  },
+  "support": {
+    "fi": "tuki",
+    "se": "support"
+  },
+  "username": {
+    "fi": "käyttäjänimi",
+    "se": "användarnamn"
+  },
+  "my tickets": {
+    "fi": "minun tiketit",
+    "se": "visa mina ärenden"
+  },
+  "wallet": {
+    "fi": "lompakko",
+    "se": "plånbok"
+  },
+  "withdraw": {
+    "fi": "nosto",
+    "se": "ta ut"
+  },
+  "you": {
+    "fi": "sinä",
+    "se": "du"
+  },
+  "paid": {
+    "fi": "maksettu",
+    "se": "paidar"
+  },
+  "delivered": {
+    "fi": "lähetetty",
+    "se": "delivared"
+  },
+  "declined": {
+    "fi": "hylätty",
+    "se": "declinad"
+  },
+  "completed": {
+    "fi": "valmis",
+    "se": "complad"
+  },
+  "disputed": {
+    "fi": "riitautettu",
+    "se": "disputad"
+  },
+  "dispute countered": {
+    "fi": "riitaan vastattu",
+    "se": "disputa cauntarad"
+  },
+  "dispute settled": {
+    "fi": "riita ratkaistu",
+    "se": "disputa cauntarad"
+  },
+  "previously seen": {
+    "fi": "viimeksi paikalla",
+    "se": "jag heter homo peter"
+  },
+  "how to become vendor?": {
+    "fi": "Kuinka tulla vendoriksi?",
+    "se": "jag heter homo peter"
+  },
+  "you need to have an account with 2FA enabled and over 1XMR balance in order to pay the vendor pledge.": {
+    "fi": "sinulla tulee olla 2FA päällä sekä ainakin 1XMR tilillä jotta voit maksaa vendorin pantin.",
+    "se": "jag heter homo peter"
+  },
+  "how to make an order?": {
+    "fi": "kuinka tehdä tilaus?",
+    "se": "jag heter homo peter"
+  },
+  "first make a deposit to your wallets XMR address, then find a product and just make an order.": {
+    "fi": "talleta ensin rahaa XMR lompakkoosi, etsi sopiva tuote ja tee tilaus.",
+    "se": "jag heter homo peter"
+  },
+  "amount": {
+    "fi": "määrä",
+    "se": "amountar"
+  }
+}

@@ -1,0 +1,61 @@
+{{define "main"}}
+<div class="centered gap--m mobile-container">
+    <form class="form--basic pop padding--m" action="/delete" method="post">
+        <div class="row-centered padding--m">
+            <h2>Do operations</h2>
+        </div>
+        <div class="form__field">
+            <label>operation</label>
+            <select type="text" name="Operation" required>
+              <option value="banUser">Ban user</option>
+              <option value="deleteBan">Undo ban</option>
+              <option value="deleteListing">Delete listing</option>
+              <option value="deleteReview">Delete Review</option>
+            </select>
+        </div>
+        <div class="form__field">
+            <label>ID</label>
+            <input class="input--text" type="text" name="ID" required />
+        </div>
+        <div class="form__field--right">
+            <button type="submit">delete</button>
+        </div>
+    </form>
+
+    <div>
+    <h2>Disputes</h2>
+    <table>
+      <thead>
+        <th>ID</th>
+        <th>created at</th>
+      </thead>
+      <tbody>
+        {{range .Data.disputes}}
+        <tr>
+          <td><a href="/dispute?id={{.ID}}">{{.ID}}</a></td>
+          <td>{{FmtTime .CreatedAt}}</td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h2>Tickets</h2>
+    <table>
+      <thead>
+        <th>ID</th>
+        <th>created at</th>
+      </thead>
+      <tbody>
+        {{range .Data.tickets}}
+        <tr>
+          <td><a href="/ticket?id={{.ID}}">{{.ID}}</a></td>
+          <td>{{FmtTime .CreatedAt}}</td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{end}}

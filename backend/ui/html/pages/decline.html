@@ -1,0 +1,18 @@
+{{define "main"}}
+<div class="gap--m pop">
+  {{template "order" .}}
+  <hr>
+{{with .Data.order}}
+  <form class="form--simple padding--m" action="/orders/decline" method="post">
+    <input type="hidden" name="OrderID" value="{{.Order.ID}}" />
+    <div class="form__field">
+      <label for="reason">{{T "Decline reason" $.Lang}}</label>
+      <textarea id="reason" name="Reason" spellcheck="false"></textarea>
+    </div>
+    <div class="form__field--right">
+      <button type="submit" class="button--visible">{{T "Decline" $.Lang}}</button>
+    </div>
+  </form>
+{{end}}
+</div>
+{{end}}

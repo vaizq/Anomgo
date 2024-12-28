@@ -1,0 +1,157 @@
+.product__grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0em 5em 5em 5em;
+	gap: 2em;
+	max-width: 1400px;
+}
+
+.product__card {
+	flex: 1 1 250px;
+	max-width: 360px;
+	border-radius: 10px;
+	background-color: var(--color-bg-dark);
+	box-shadow: 0 4px 8px black;
+	transition: box-shadow 0.3s ease;
+}
+
+.product__image {
+	width: 360px;
+	height: 360px;
+	border-radius: 10px 10px 0px 0px;
+	object-fit: cover;
+}
+
+.product__title {
+	margin-bottom: 5px;
+}
+
+.product__rating {
+	display: grid;
+	grid-template-columns: auto 0;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.product__desc--s {
+	max-width: 80%;
+	text-align: center;
+	font: inherit;
+	font-size: var(--font-size-secondary);
+	color: var(--color-text-secondary);
+	height: 4em;
+}
+
+.product__details {
+	position: relative;
+	left: 0px;
+	top: 10px;
+	padding: 2px 8px 5px 8px;
+}
+
+.product__details summary {
+	font: inherit;
+	color: var(--color-text-primary);
+	font-weight: bold;
+}
+
+.product__details p {
+	font: inherit;
+	color: var(--color-text-primary);
+}
+
+.vendor-logo-container {
+	position: relative;
+	left: 290px;
+	top: -185px;
+	width: 55px;
+	height: 55px;
+}
+
+.vendor-name {
+	margin: 15px 10px 10px 0px;
+}
+
+h3 a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.product__image--large {
+	max-width: 600px;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	aspect-ratio: 1;
+}
+
+.product__description {
+	font-size: 16px;
+	color: var(--color-text-primary);
+	width: 100%;
+	margin: 0em 1em 0em 1em;
+	text-align: center;
+}
+
+.product__container {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	gap: 20px;
+	max-width: 1200px;
+}
+
+.product-image {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.product-info {
+	display: flex;
+	flex-direction: column;
+	grid-column: 2;
+	grid-row: 1;
+}
+
+.order__container {
+	grid-column: 1;
+	grid-row: 2;
+}
+
+.review__container {
+	grid-column: 2;
+	grid-row: 2;
+	padding: 20px;
+}
+
+@media (max-width: 920px) {
+	.product__description {
+		width: 100%;
+	}
+
+	.product__container {
+		grid-template-columns: 1fr;
+	}
+
+	.product-image {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	.product-info {
+		grid-column: 1;
+		grid-row: 2;
+	}
+
+	.order__container {
+		grid-column: 1;
+		grid-row: 3;
+		border-radius: 20px;
+	}
+
+	.review__container {
+		grid-column: 1;
+		grid-row: 4;
+	}
+}

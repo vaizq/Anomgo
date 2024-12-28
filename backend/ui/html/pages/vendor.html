@@ -1,0 +1,46 @@
+{{define "main"}}
+{{with .Data.vendor}}
+
+<div class="flex-col-cen pop padding--m gap--s mobile-container">
+  <h1>{{.User.Username}}</h1>
+  <div class="logo__container">
+    <img src="uploads/vendor-logos/{{.LogoFilename}}" alt="Vendor logo" class="vendor__logo" />
+  </div>
+  <div class="row-centered">
+        {{range Iterate 0 .Rating.Whole}}
+        <svg class="size-4 star--bright">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{end}}
+        {{if .Rating.Half}}
+        <svg class="size-4 star--light">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{range Iterate .Rating.Whole 4}}
+        <svg class="size-4 star-dark">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{end}}
+        {{else}}
+        {{range Iterate .Rating.Whole 5}}
+        <svg class="size-4">
+          <use xlink:href="/static/icons.svg#icon-star"></use>
+        </svg>
+        {{end}}
+        {{end}}
+  </div>
+  <div class="form__field">
+    <p>{{T "Reviews" $.Lang}}: {{.NumReviews}}</p>
+    <p>{{T "Pending disputes" $.Lang}}: {{.NumDisputes}}</p>
+    <p>{{T "Previously seen" $.Lang}}: {{FmtTime .User.PrevLogin}}</p>
+  </div>
+  {{if .User.PgpKey}}
+  <div class="form__field">
+    <label for="pgpkey">{{T "PGP public key" $.Lang}}</label>
+    <textarea class="padding--m" spellcheck="false" readonly>{{.User.PgpKey}}</textarea>
+  </div>
+  {{end}}
+</div>
+
+{{end}}
+{{end}}

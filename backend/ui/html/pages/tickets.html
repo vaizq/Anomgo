@@ -1,0 +1,35 @@
+{{define "main"}}
+<div class="centered">
+  <h2>My tickets</h2>
+  <table>
+    <thead>
+      <th>ID</th>
+      <th>status</th>
+      <th>subject</th>
+      <th>date</th>
+    </thead>
+    <tbody>
+      {{range .Data.tickets}}
+      <tr>
+        <td>
+          <a href="/ticket/view?id={{.ID}}">{{.ID}}</a>
+        </td>
+        <td>
+          <a href="/ticket/view?id={{.ID}}">
+            {{if .IsOpen}}
+            open 
+            {{else}}
+            closed 
+            {{end}}
+          </a>
+        </td>
+        <td>
+          {{.Subject}}
+        </td>
+        <td>{{FmtDate .CreatedAt}}</td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+</div>
+{{end}}

@@ -1,0 +1,25 @@
+{{define "main"}}
+<form class="form--basic mw-m" action="/login" method="post">
+    <div class="row-centered padding--m">
+        <h2>{{T "Login" $.Lang}}</h2>
+    </div>
+    <div class="form__field">
+        <label for="username">{{T "username" $.Lang}}</label>
+        <input id="username" class="input--text" type="text" name="Username" required />
+    </div>
+    <div class="form__field">
+        <label for="password">{{T "password" $.Lang}}</label>
+        <input id="password" class="input--text" type="password" name="Password" required />
+    </div>
+    <div class="form__field--right">
+        {{template "captcha" .}}
+    </div>
+    {{if .Form}}
+    {{range .Form.NonFieldErrors}}
+    <div class="form__field">
+        <p class="form-error">{{.}}</p>
+    </div>
+    {{end}}
+    {{end}}
+</form>
+{{end}}

@@ -1,0 +1,43 @@
+{{define "order"}}
+{{with .Data.order}}
+<div class="order__card">
+    <div class="centered">
+        <h1>{{T "Order" $.Lang}}</h1>
+        <p>{{.Order.ID}}</p>
+    </div>
+    <hr>
+    <div class="order-details-container">
+        <h3 class="m0">{{T "Status" $.Lang}}:</h3>
+        <p>{{T .Order.Status $.Lang}}</p>
+        <h3 class="m0">{{T "Product" $.Lang}}:</h3>
+        <a href="/product?id={{.Product.ID}}">{{.Product.Title}}</a>
+        <h3 class="m0">{{T "Quantity" $.Lang}}:</h3>
+        <p>{{.Price.Quantity}}g</p>
+        <h3 class="m0">{{T "Price" $.Lang}}:</h3>
+        <p>{{.Price.Price}}€</p>
+        <h3 class="m0">{{T "Delivery method" $.Lang}}:</h3>
+        <p>{{.DeliveryMethod.Description}}</p>
+        <h3 class="m0">{{T "Shipping cost" $.Lang}}:</h3>
+        <p>{{.DeliveryMethod.Price}}€</p>
+        <h3 class="m0">{{T "Date" $.Lang}}:</h3>
+        <p>{{FmtTime .Order.CreatedAt}}</p>
+    </div>
+    <div class="info">
+        <h2 class="ml0">{{T "Details" $.Lang}}</h2>
+        <textarea class="bg" spellcheck="false" readonly>{{.Order.Details}}</textarea>
+    </div>
+    {{if ne .Order.Status "paid"}}
+    <div class="info">
+        <h2 class="ml0">{{T "Delivery info" $.Lang}}</h2>
+        <textarea class="bg" spellcheck="false" readonly>{{.DeliveryInfo.Info}}</textarea>
+    </div>
+    {{end}}
+    {{if eq .Order.Status "declined"}}
+    <div class="info">
+        <h2 class="ml0">{{T "Reason for decline" $.Lang}}</h2>
+        <textarea class="bg" spellcheck="false" readonly>{{.DeclineReason.Reason}}</textarea>
+    </div>
+    {{end}}
+</div>
+{{end}}
+{{end}}

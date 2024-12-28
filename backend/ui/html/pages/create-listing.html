@@ -1,0 +1,101 @@
+{{define "styles"}}
+<link rel="stylesheet" href="/ui/css/create-listing.css" />
+{{end}}
+
+{{define "main"}}
+<form class="form--wide" action="/vendor/create-listing" method="post" enctype="multipart/form-data">
+  <div class="form__field">
+    <label>{{T "Name" $.Lang}}</label>
+    <input class="input--text" type="text" name="Title" {{with .Form}}value="{{.Title}}" {{end}}required />
+  </div>
+  <div class="form__field">
+    <label>{{T "Description" $.Lang}}</label>
+    <textarea name="Description" spellcheck="false" required>{{with
+      .Form}}{{.Description}}{{end}}</textarea>
+  </div>
+  <div class="form__field">
+    <label>{{T "Product image" $.Lang}}</label>
+    <input type="file" name="image" accept="image/*" required />
+  </div>
+  <div class="form__field">
+    <label for="pricing-table">{{T "Pricing" $.Lang}}</label>
+    <table id="pricing-table" class="pricing-table listing__table">
+      <thead>
+        <th>{{T "Quantity" $.Lang}} (g)</th>
+        <th>{{T "Price" $.Lang}} (€)</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="table__input" type="number" name="Pricings.0.Quantity" placeholder="1" required /></td>
+          <td><input class="table__input" type="number" name="Pricings.0.Price" placeholder="20" required /></td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="number" name="Pricings.1.Quantity" placeholder="2" /></td>
+          <td><input class="table__input" type="number" name="Pricings.1.Price" placeholder="40" /></td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="number" name="Pricings.2.Quantity" placeholder="3" /></td>
+          <td><input class="table__input" type="number" name="Pricings.2.Price" placeholder="50" /></td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="number" name="Pricings.3.Quantity" placeholder="10" /></td>
+          <td><input class="table__input" type="number" name="Pricings.3.Price" placeholder="150" /></td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="number" name="Pricings.4.Quantity" placeholder="50" /></td>
+          <td><input class="table__input" type="number" name="Pricings.4.Price" placeholder="700" /></td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="number" name="Pricings.5.Quantity" placeholder="100" /></td>
+          <td><input class="table__input" type="number" name="Pricings.5.Price" placeholder="1200" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="form__field">
+    <label>{{T "Delivery" $.Lang}}</label>
+    <table class="delivery-table listing__table">
+      <thead>
+        <th>{{T "Delivery method" $.Lang}}</th>
+        <th class="price-head">{{T "Price" $.Lang}} (€)</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input class="table__input" type="text" name="DeliveryMethods.0.Description"
+            placeholder="{{T "post (postcard)" $.Lang}}" required /></td>
+          <td><input class="table__input" type="number" name="DeliveryMethods.0.Price" placeholder="4" required />
+          </td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="text" name="DeliveryMethods.1.Description"
+            placeholder="{{T "deadrop (only for orders over 100$)" $.Lang}}"/></td>
+          <td><input class="table__input" type="number" name="DeliveryMethods.1.Price" placeholder="20" /></td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="text" name="DeliveryMethods.2.Description" /></td>
+          <td><input class="table__input" type="number" name="DeliveryMethods.2.Price" /></td>
+        </tr>
+        <tr>
+          <td><input class="table__input" type="text" name="DeliveryMethods.3.Description" /></td>
+          <td><input class="table__input" type="number" name="DeliveryMethods.3.Price" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="form__field--right">
+    <button type="submit">{{T "Submit" $.Lang}}</button>
+  </div>
+  {{if .Form}}
+  {{range $key, $val := .Form.FieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{$key}}: {{$val}}</p>
+  </div>
+  {{end}}
+  {{range .Form.NonFieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{.}}</p>
+  </div>
+  {{end}}
+  {{end}}
+</form>
+{{end}}

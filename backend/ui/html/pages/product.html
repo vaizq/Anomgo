@@ -1,0 +1,91 @@
+{{define "styles"}}
+<link rel="stylesheet" href="/ui/css/product.css" />
+{{end}}
+
+{{define "main"}}
+<div class="product__container">
+  {{if .Data.isVendor}}
+  {{if eq .User.ID .Data.product.Product.VendorID}}
+  <form action="/product/delete" method="post">
+    <div class="form__field--right">
+      <input type="hidden" name="ProductID" value="{{.Data.product.Product.ID}}" />
+      <button type="submit" class="button--visible">{{T "Delete" $.Lang}}</button>
+    </div>
+  </form>
+  {{end}}
+  {{end}}
+  {{with .Data.product}}
+  <div class="product-image row-centered">
+    <img src="uploads/product-images/{{.Product.ImageFilename}}" alt={{.Product.Title}}
+      class="product__image--large pop" />
+  </div>
+  <div class="product-info pop">
+    <div class="row-centered padding--l">
+      <h1>{{.Product.Title}}</h1>
+    </div>
+    <div class="row-centered flex1">
+      <p class="product__description">{{.Product.Description}}</p>
+    </div>
+    <div class="row--end padding--m">
+      <a class ="padding--m" href="/vendor?id={{.Vendor.User.ID}}">{{.Vendor.User.Username}}</a>
+    </div>
+  </div>
+  <div class="order__container">
+    <form class="minw-s pop padding--m" action="/orders/create" method="post">
+      <div class="row-centered">
+        <h2 class="padding-l">{{T "Order" $.Lang}}</h2>
+      </div>
+      <div class="col padding--m">
+        <label for="price">{{T "Quantity" $.Lang}}</label>
+        <select id="price" type="number" name="PriceID" required>
+          {{range .Prices}}
+          <option value="{{.ID}}">{{.Quantity}}g : {{.Price}}€</option>
+          {{end}}
+        </select>
+      </div>
+      <div class="col padding--m">
+        <label for="delivery">{{T "delivery method" $.Lang}}</label>
+        <select id="delivery" type="number" name="DeliveryMethodID" required>
+          {{range .DeliveryMethods}}
+          <option value="{{.ID}}">{{.Description}} : {{.Price}}€</option>
+          {{end}}
+        </select>
+      </div>
+      <div class="col padding--m">
+        <label for="details">{{T "details" $.Lang}}</label>
+        <textarea id="details" name="Details" spellcheck="false" required></textarea>
+      </div>
+      <div class="row--end padding--m">
+        <button type="submit" class="button--visible">{{T "Submit" $.Lang}}</button>
+      </div>
+    </form>
+  </div>
+  <div class="review__container pop">
+    <div class="row-centered">
+      <h2 class="padding-l">{{T "Reviews" $.Lang}}</h2>
+    </div>
+    <div class="row-centered">
+      <table>
+        <tbody>
+          {{range .Reviews}}
+          <tr>
+            <td>{{Obfuscate .Author.Username}}</td>
+            <td>{{.Review.Message}}</td>
+            <td>
+              <div class="row">
+                {{range Iterate 0 .Review.Grade}}
+                <svg class="size-4 star--bright">
+                  <use xlink:href="/static/icons.svg#icon-star"></use>
+                </svg>
+                {{end}}
+              </div>
+            </td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+      {{end}}
+    </div>
+  </div>
+</div>
+{{end}}

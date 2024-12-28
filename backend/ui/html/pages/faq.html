@@ -1,0 +1,15 @@
+{{define "main"}}
+<div class="centered gap--m">
+  <h1>FAQ</h1>
+  <div class="centered ticket-container pop padding--m">
+      <div class="form__field">
+        <label>{{T "How to become vendor?" $.Lang}}</label>
+        <textarea class="ticket-message" >{{T "You need to have an account with 2FA enabled and over 1XMR balance in order to pay the vendor pledge." $.Lang}}</textarea>
+      </div>
+      <div class="form__field">
+        <label>{{T "How to make an order?" $.Lang}}</label>
+        <textarea class="ticket-message" >{{T "First make a deposit to your wallets XMR address, then find a product and just make an order." $.Lang}}</textarea>
+      </div>
+  </div>
+</div>
+{{end}}

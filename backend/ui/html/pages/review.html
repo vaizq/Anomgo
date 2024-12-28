@@ -1,0 +1,41 @@
+{{define "main"}}
+<form class="pop padding--m" action="/orders/review" method="post">
+  {{with .Data.order}}
+  <div class="centered">
+    <h1>{{T "Review" $.Lang}}</h1>
+  </div>
+  <input type="hidden" name="OrderID" value="{{.Order.ID}}" />
+  <div class="row-centered">
+    <div class="col padding--m">
+      <label for="grade">{{T "Grade" $.Lang}}</label>
+      <select id="grade" type="number" name="Grade" required>
+        <option value="1">1/5⭐</option>
+        <option value="2">2/5⭐</option>
+        <option value="3">3/5⭐</option>
+        <option value="4">4/5⭐</option>
+        <option value="5">5/5⭐</option>
+      </select>
+    </div>
+    <div class="col padding--m">
+      <label for="message">{{T "Message" $.Lang}}</label>
+      <textarea id="message" name="Message" spellcheck="false" class="form__textarea--m"></textarea>
+    </div>
+  </div>
+  <div class="form__field--right">
+    <button type="submit">{{T "Submit" $.Lang}}</button>
+  </div>
+  {{end}}
+  {{if .Form}}
+  {{range .Form.FieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{.}}</p>
+  </div>
+  {{end}}
+  {{range .Form.NonFieldErrors}}
+  <div class="form__field">
+    <p class="form-error">{{.}}</p>
+  </div>
+  {{end}}
+  {{end}}
+</form>
+{{end}}

@@ -1,0 +1,7 @@
+.env
+backend/uploads
+backend/static/captcha
+moneropay
+backup
+*.log
+test

@@ -1,0 +1,31 @@
+{{define "base"}}
+<!doctype html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <title>pilvitori</title>
+    <link rel="stylesheet" href="/ui/css/base.css" />
+    <link rel="stylesheet" href="/ui/css/component.css" />
+    <link rel="stylesheet" href="/ui/css/header.css" />
+    <link rel="stylesheet" href="/ui/css/footer.css" />
+    {{block "styles" .}}{{end}}
+</head>
+
+<body>
+    {{template "header" .}}
+    {{if .Notes}}
+    <div class="centered gap--m">
+    {{range .Notes}}
+        <p class="note">{{.}}</p>
+    {{end}}
+    </div>
+    {{end}}
+    <main class="centered">
+        {{template "main" .}}
+    </main>
+    {{template "footer" .}}
+</body>
+
+</html>
+{{end}}

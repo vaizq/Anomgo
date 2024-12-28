@@ -1,0 +1,57 @@
+.table-container {
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	padding: 1em 5px 1em 5px;
+	width: 100%;
+	gap: 20px;
+}
+
+.pricing-container {
+	flex: 0 0 16em;
+}
+
+.delivery-container {
+	flex: 1 1 380px;
+	min-width: 380px;
+}
+
+.pricing-table {
+	width: 15em;
+	table-layout: fixed;
+}
+
+.price-head {
+	width: 7em;
+}
+
+.pricing-table th,
+.pricing-table td {
+	width: 50%;
+}
+
+.delivery-table {
+	width: 100%;
+}
+
+.listing__table {
+	background-color: var(--color-bg);
+	padding: 10px;
+	border-radius: 5px;
+}
+
+
+
+.table__input {
+	width: 100%;
+	height: 1.5em;
+	border: none;
+	border-radius: 5px;
+	background-color: var(--color-bg-light2);
+	color: var(--color-text-bright);
+	box-sizing: border-box;
+}
+
+.table__input::placeholder {
+	color: var(--color-text-placeholder);
+}

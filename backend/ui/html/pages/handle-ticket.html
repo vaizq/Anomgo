@@ -1,0 +1,51 @@
+{{define "main"}}
+{{with .Data.ticket}}
+<div class="centered gap--m">
+  {{if not .Ticket.IsOpen}}
+  <h1>This ticket is closed</h1>
+  {{end}}
+  <div class="centered ticket-container pop padding--m">
+    <h3>{{.Ticket.Subject}}</h3>
+    <div class="form__field">
+      <label>{{T "Message" $.Lang}}</label>
+      <textarea class="ticket-message" >{{.Ticket.Message}}</textarea>
+    </div>
+  </div>
+  {{range .Responses}}
+  {{if eq .AuthorName "admin"}}
+  <div class="ticket-container pop padding--m">
+    <textarea class="ticket-message" >{{.Message}}</textarea>
+    <div class="form__field--right">
+      <p>{{.AuthorName}}</p>
+    </div>
+  </div>
+  {{else}}
+  <div class="ticket-container pop padding--m ml50">
+    <textarea class="ticket-message" >{{.Message}}</textarea>
+    <div class="form__field--right">
+      <p>{{.AuthorName}}</p>
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+
+  {{if .Ticket.IsOpen}}
+  <form class="form--basic" action="/ticket" method="post">
+    <input type="hidden" name="TicketID" value="{{.Ticket.ID}}" />
+    <div class="form__field">
+      <label>{{T "Response" $.Lang}}</label>
+      <textarea name="Message" spellcheck="false"></textarea>
+    </div>
+    <div>
+      <label>Close this ticket?</label>
+      <input type="checkbox" name="CloseTicket" value="true"/>
+    </div>
+    <div class="form__field--right">
+      <button type="submit">{{T "Submit" $.Lang}}</button>
+    </div>
+  </form>
+  {{end}}
+</div>
+
+{{end}}
+{{end}}
