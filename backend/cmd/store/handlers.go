@@ -508,17 +508,19 @@ func (app *application) handleWithdrawal(w http.ResponseWriter, r *http.Request)
 	}
 
 	form.CheckField(validate.ValidXMRAddress(form.Address), "Address", "Not a valid XMR-address")
-	form.CheckField(form.AmountFiat > 0, "AmountFiat", "Amount must be positive")
+	form.CheckField(form.AmountFiat >= 10, "AmountFiat", "Minimum withdrawal amount is 10€")
 	if !form.Valid() {
-		log.Info.Println("received invalid form")
-		app.renderInvalidForm(w, r, "/user/settings", form)
+		app.addNotes(r.Context(), "Minimum withdrawal amount is 10€!")
+		app.renderInvalidForm(w, r, "wallet.html", form)
+		return
 	}
 
 	user := app.loggedInUser(r)
 	amount, err := payment.WithdrawFunds(app.db, user.ID, form.Address, payment.Fiat2XMR(form.AmountFiat))
 	if errors.Is(err, payment.ErrNotEnoughBalanceToWithdraw) {
-		form.SetError("Minimum withdrawal amount is 10$")
-		app.renderInvalidForm(w, r, "/user/settings", form)
+		form.SetError("Minimum withdrawal amount is 10€")
+		app.addNotes(r.Context(), "Not enough balance!")
+		app.renderInvalidForm(w, r, "wallet.html", form)
 		return
 	} else if err != nil {
 		app.serverError(w, err)
@@ -526,6 +528,9 @@ func (app *application) handleWithdrawal(w http.ResponseWriter, r *http.Request)
 	}
 
 	log.Info.Printf("Withdrawal of %s XMR to %s initiated.\n", payment.XMR2Decimal(amount), form.Address)
+
+	app.addNotes(r.Context(), "Withdrawal initiated successfully!")
+
 	http.Redirect(w, r, "/user/wallet", http.StatusSeeOther)
 }
 
@@ -1008,7 +1013,7 @@ func (app *application) handleTicket(w http.ResponseWriter, r *http.Request) {
 
 	if !form.Valid() {
 		log.Info.Println("received invalid form")
-		app.renderInvalidForm(w, r, "/ticket/create", form)
+		app.renderInvalidForm(w, r, "create-ticket.html", form)
 		return
 	}
 
@@ -1083,7 +1088,7 @@ func (app *application) handleTicketResponse(w http.ResponseWriter, r *http.Requ
 
 	if !form.Valid() {
 		log.Info.Println("received invalid form")
-		app.renderInvalidForm(w, r, "/ticket/create", form)
+		app.renderInvalidForm(w, r, "create-ticket.html", form)
 		return
 	}
 

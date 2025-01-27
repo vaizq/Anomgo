@@ -1,7 +1,4 @@
-## DEADLINE 2024 (noin 2 viikkoa aikaa)
-
 ## TODO
-- archetyp like tour for users and for vendors
 
 ## DONE
 - Admin panel (handle disputes, ban users, remove listings)

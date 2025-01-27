@@ -17,54 +17,206 @@ import (
 	"os"
 )
 
-const numProducts = 10
-const numOrders = 100
+const numOrders = 40
 
-var titles = []string{"OG kush", "Master Kush", "Skunk#1", "Gorilla Glue", "Critical", "Pure Power Plant"}
-var descriptions = []string{
-	"Hyvää budia",
-	`Sativa-dominantti Trainwreck tuottaa vankkoja kasveja ja hyviä satoja, jos sitä kohdellaan rakkaudella ja huolenpidolla. Tämä hyvän mielen lajike miellyttää niitä, jotka nauttivat piristävästä kannabiksesta, jonka vaikutukset saavat olon energiseksi ja valmiiksi valloittamaan päivän. Herkullinen sitrushedelmien ja männyn aromi sekoittuu yrtti- ja minttuvivahteisiin tarjoten maukkaan kokemuksen.`,
-	`Useimmat kasvattavat hurmaantuvat Mimosan iskevästä ulkonäöstä. Se ei kuitenkaan ole lajikkeen ainoa mainitsemisen arvoinen ominaisuus, sillä myös THC-tasot ovat tukevat ja terpeeniprofiili upea. Kompakti koko tekee Mimosasta helpon ja vaivattoman kasvatettavan. Huolimatta pienestä koostaan, onnistuu Mimosa-kannabislajike silti tuottamaan palkitsevia satoja.`,
-	`Lajiketta valittaessa kasvattajalla on aina useita erilaisia vaatimuksia kasvilleen: sato, voimakkuus, maku, kasvatuksen helppous, sopivuus ilmastoon ja niin edelleen. On kuitenkin olemassa eräs kannabis lajike, joka sovittaa yhteen näitä vaatimuksia lähestyen täten täydellistä rahakasvin ideaalia.`,
-	`Sisällä 600 W:n valon alla kasvatettuna nämä siemenet tuottavat kasveja, joista saadaan noin 65–75 grammaa kasvia kohti tai 600 g/m². Ulkona Critical puolestaan suosii lämmintä ilmastoa, esimerkiksi Espanjaa, Italiaa tai Kaliforniaa. Oikeissa olosuhteissa se voi tuottaa näissä ilmastoissa yli 100 grammaa kasvia kohti. Johtuen sen suhteellisen lyhyestä kukkimisajasta, voidaan sitä kasvattaa pohjoisemmilla leveysasteilla (kuten Iso-Britanniassa, Alankomaissa tai Suomessa). Siemenet eivät kuitenkaan saavuta täyttä potentiaaliaan, kuten ne sisällä tekisivät.
-	Mikään muu Royal Queen Seedsin kasvi ei tuota yhtä paljon seitsemässä viikossa kuin feminisoidut Critical- kannabiksen siemenet. Lyhyen kukkimissyklin ansiosta se sopii kasvattajille, joiden täytyy viedä projekti alusta loppuun tiukan aikarajan puitteissa. Kaupalliset kasvattajat osaavat arvostaa sen ominaisuuksia Sea of Green / Screen of Green -metodeja käytettäessä, sillä se tuottaa isoja satoja vähäisellä ylläpidolla.`,
+type listing struct {
+	title           string
+	description     string
+	image           string
+	pricing         []product.Pricing
+	deliveryMethods []product.DeliveryMethod
+}
+
+var listings = []listing{
+	{
+		title:       "Rucola",
+		description: "Raikas ja mausteinen rucola, joka on kasvatettu ekologisesti ja ilman kemikaaleja. Se tuo ruokiin voimakasta makua ja toimii erinomaisena lisänä salaateissa, pastoissa ja voileivissä.",
+		image:       "arugula.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 50, Price: 4},    // 50 g for 4 EUR
+			{Quantity: 100, Price: 7},   // 100 g for 7 EUR
+			{Quantity: 250, Price: 15},  // 250 g for 15 EUR
+			{Quantity: 500, Price: 28},  // 500 g for 28 EUR
+			{Quantity: 1000, Price: 50}, // 1 kg for 50 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+			{Description: "Drone kuljetus", Price: 25}, // Added Drone delivery
+		},
+	},
+	{
+		title:       "Basilika",
+		description: "Tämä tuore ja täyteläinen basilika on kasvatettu luonnollisesti ilman kemikaaleja. Sen aromaattinen maku tekee siitä erinomaisen lisän salaateille, pastoille ja tuoreille kastikkeille.",
+		image:       "basilika.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 50, Price: 5},    // 50 g for 5 EUR
+			{Quantity: 100, Price: 9},   // 100 g for 9 EUR
+			{Quantity: 250, Price: 20},  // 250 g for 20 EUR
+			{Quantity: 500, Price: 35},  // 500 g for 35 EUR
+			{Quantity: 1000, Price: 60}, // 1 kg for 60 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+		},
+	},
+	{
+		title:       "Parsakaali",
+		description: "Korkealaatuinen parsakaali, joka on kasvatettu ekologisesti. Tämä vihannes on täynnä vitamiineja ja ravintoaineita, ja se on täydellinen lisä terveellisiin ruokalajeihin, kuten keittoihin ja paistoksiin.",
+		image:       "broccoli.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 100, Price: 6},   // 100 g for 6 EUR
+			{Quantity: 200, Price: 11},  // 200 g for 11 EUR
+			{Quantity: 500, Price: 25},  // 500 g for 25 EUR
+			{Quantity: 1000, Price: 45}, // 1 kg for 45 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+		},
+	},
+	{
+		title:       "Chili-paprika",
+		description: "Tämä voimakas ja tulinen chili-paprika on kasvatettu huolella ja tarjoaa intensiivisen maun. Sen kirkas punainen väri ja tulisuus tekevät siitä erinomaisen mausteeksi kaikille ruokalajeille, joissa tarvitaan potkua.",
+		image:       "chilli-pepper.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 50, Price: 4},    // 50 g for 4 EUR
+			{Quantity: 100, Price: 7},   // 100 g for 7 EUR
+			{Quantity: 250, Price: 15},  // 250 g for 15 EUR
+			{Quantity: 500, Price: 28},  // 500 g for 28 EUR
+			{Quantity: 1000, Price: 50}, // 1 kg for 50 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+			{Description: "Drone kuljetus", Price: 25}, // Added Drone delivery
+		},
+	},
+	{
+		title:       "Valkosipuli",
+		description: "Tuore valkosipuli, joka on käsin kerätty ja tarjoaa voimakkaan ja syvän maun. Tämä valkosipuli on täydellinen mauste keittoihin, pastoihin ja moniin muihin ruokalajeihin.",
+		image:       "garlic.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 50, Price: 3},    // 50 g for 3 EUR
+			{Quantity: 100, Price: 6},   // 100 g for 6 EUR
+			{Quantity: 250, Price: 14},  // 250 g for 14 EUR
+			{Quantity: 500, Price: 25},  // 500 g for 25 EUR
+			{Quantity: 1000, Price: 45}, // 1 kg for 45 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+			{Description: "Drone kuljetus", Price: 25}, // Added Drone delivery
+		},
+	},
+	{
+		title:       "Limetti",
+		description: "Raikas ja mehevä limetti, joka tuo eloisuutta ruokiin ja juomiin. Tämä ekologisesti kasvatettu limetti on täydellinen makuvivahde salaateille, juomille ja ruoille.",
+		image:       "lime.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 50, Price: 4},    // 50 g for 4 EUR
+			{Quantity: 100, Price: 8},   // 100 g for 8 EUR
+			{Quantity: 250, Price: 18},  // 250 g for 18 EUR
+			{Quantity: 500, Price: 30},  // 500 g for 30 EUR
+			{Quantity: 1000, Price: 50}, // 1 kg for 50 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+			{Description: "Drone kuljetus", Price: 25}, // Added Drone delivery
+		},
+	},
+	{
+		title:       "Paprika",
+		description: "Värikäs ja mehukas paprika, joka on täynnä vitamiineja ja raikkautta. Tämä eksoottinen paprika on kasvatettu parhaille kentille ja se on täydellinen lisä moniin ruokalajeihin.",
+		image:       "paprika.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 100, Price: 5},   // 100 g for 5 EUR
+			{Quantity: 200, Price: 9},   // 200 g for 9 EUR
+			{Quantity: 500, Price: 18},  // 500 g for 18 EUR
+			{Quantity: 1000, Price: 35}, // 1 kg for 35 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+			{Description: "Drone kuljetus", Price: 25}, // Added Drone delivery
+		},
+	},
+	{
+		title:       "Pinaatti",
+		description: "Tuore pinaatti, joka on täynnä ravinteita ja makua. Tämä monipuolinen vihannes sopii keittoihin, salaateihin ja smoothieihin.",
+		image:       "spinach.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 50, Price: 3},    // 50 g for 3 EUR
+			{Quantity: 100, Price: 6},   // 100 g for 6 EUR
+			{Quantity: 250, Price: 12},  // 250 g for 12 EUR
+			{Quantity: 500, Price: 20},  // 500 g for 20 EUR
+			{Quantity: 1000, Price: 35}, // 1 kg for 35 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+			{Description: "Drone kuljetus", Price: 25}, // Added Drone delivery
+		},
+	},
+	{
+		title:       "Tomaatit",
+		description: "Tuoreet ja mehukkaat tomaatit, jotka ovat täynnä makua. Ne ovat kasvatettu korkealaatuisilla menetelmillä ja ovat täydellisiä salaateihin, pastoihin ja kaikenlaisiin ruokiin.",
+		image:       "tomatos.jpg",
+		pricing: []product.Pricing{
+			{Quantity: 100, Price: 4},   // 100 g for 4 EUR
+			{Quantity: 200, Price: 7},   // 200 g for 7 EUR
+			{Quantity: 500, Price: 16},  // 500 g for 16 EUR
+			{Quantity: 1000, Price: 30}, // 1 kg for 30 EUR
+		},
+		deliveryMethods: []product.DeliveryMethod{
+			{Description: "Posti (kirje)", Price: 4},
+			{Description: "Posti (paketti)", Price: 8},
+			{Description: "Kotiin kuljetus", Price: 12},
+			{Description: "Drone kuljetus", Price: 25}, // Added Drone delivery
+		},
+	},
+}
+
+type vendor struct {
+	name string
+	logo string
+}
+
+var vendors = []vendor{
+	{name: "burgerking", logo: "bk.png"},
+	{name: "cocacola", logo: "cocacola.png"},
+	{name: "mercedes", logo: "mercedes.png"},
+	{name: "tesla", logo: "tesla.png"},
 }
 
 var deliveryDetails = []string{
-	"Kontulan pirtti 1B11 Helsinki 0420",
-	"Hiihtäjäntie 13 Jyväskylä 0666",
-	"Lentäjänpolku 2 B 14 Iisalmi 0691",
+	"Aleksanterinkatu 20 A 6, Helsinki 00100",
+	"Pasilanraitio 2 B 15, Helsinki 00240",
+	"Rautatienkatu 10 C, Tampere 33100",
+	"Kallionkatu 23 D 4, Turku 20100",
+	"Rinnepolku 5, Oulu 90250",
 }
-
-var imagesFolder = "uploads/product-images"
-var logoFolder = "uploads/vendor-logos"
-var pricings = []product.Pricing{
-	{Quantity: 1, Price: 20},
-	{Quantity: 2, Price: 40},
-	{Quantity: 5, Price: 90},
-	{Quantity: 10, Price: 150},
-	{Quantity: 100, Price: 1200},
-}
-
-var deliveryMethods = []product.DeliveryMethod{
-	{Description: "Posti (kirjekurori)", Price: 4},
-	{Description: "Posti (2xMylar)", Price: 6},
-	{Description: "Posti (pakett)", Price: 10},
-	{Description: "Maastokätkö (vain yli 100€ tilauksiin uusimaan alueella)", Price: 20},
-}
-
-var users = []string{"Pirkka", "Make", "Sakari", "BOB420"}
 
 var reviews = []struct {
 	grade   int
 	message string
 }{
-	{grade: 5, message: "Tuote priimaa, toimitus nopea ja todella hyvä stealth pakkaus!"},
-	{grade: 5, message: "Laatua niinkuin aina!"},
-	{grade: 4, message: "Kukka oli hyvää ja toimitus kesti vain kolme päviää."},
-	{grade: 3, message: "Ok"},
-	{grade: 2, message: "Budit oli aika höttöä, muuten ok."},
-	{grade: 1, message: "Tilasin 3g, mutta tulikin 2.5g ja budit ihan paskaa höttöä. Paketointi oli tehty ilmastointiteipillä. Älkää ostako!."},
+	{grade: 5, message: "Erittäin herkullista ja tuoretta sekä nopea toimitus!"},
+	{grade: 5, message: "Taattua laatua!"},
+	{grade: 4, message: "Hyvää oli ja toimitus kesti vain kolme päviää."},
+	{grade: 3, message: "Kaikki ok"},
+	{grade: 2, message: "Toimitus kesti tosi kauan"},
+	{grade: 1, message: "Tilasin 2 viikkoa sitten eikä ole vieläkään tullut perille! Mikä mättää??"},
 }
 
 func selectRandom[T any](s []T) T {
@@ -92,15 +244,14 @@ func main() {
 	}
 	defer db.Close()
 
-	images := imageFilenames(imagesFolder)
-
+	var uids = []uuid.UUID{}
 	log.Println("Creating some users")
-	uids := []uuid.UUID{}
-	for _, user := range users {
-		u, err := auth.Register(db, user, user+"123", "")
+	for _, vendor := range vendors {
+		u, err := auth.Register(db, vendor.name, vendor.name+"123", "")
 		if err != nil {
 			log.Fatal(err)
 		}
+
 		uids = append(uids, u.ID)
 
 		wallet, err := model.M.Wallet.GetForUser(db, u.ID)
@@ -111,30 +262,21 @@ func main() {
 		if _, err := model.M.Wallet.AddBalance(db, wallet.ID, 10000000000000); err != nil {
 			log.Fatal(err)
 		}
-	}
 
-	log.Println("Creating vendor pledges")
-	logos := imageFilenames(logoFolder)
-	usedLogos := map[string]bool{}
-	for _, uid := range uids {
-		logo := selectRandom(logos)
-		for isUsed, ok := usedLogos[logo]; ok && isUsed; {
-			logo = selectRandom(logos)
-		}
-		pledge.Create(db, uid, selectRandom(logos))
+		pledge.Create(db, u.ID, vendor.logo)
 	}
 
 	log.Println("Creating some products")
 	products := make([]model.Product, 0)
-	for i := 0; i < numProducts; i++ {
+	for _, listing := range listings {
 		// Create product
 		product, err := product.Create(
 			db,
-			selectRandom(titles),
-			selectRandom(descriptions),
-			selectRandom(images),
-			pricings,
-			deliveryMethods,
+			listing.title,
+			listing.description,
+			listing.image,
+			listing.pricing,
+			listing.deliveryMethods,
 			selectRandom(uids))
 		if err != nil {
 			log.Fatal(err)
