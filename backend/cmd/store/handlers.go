@@ -135,7 +135,7 @@ func (app *application) handleLogin(w http.ResponseWriter, r *http.Request) {
 			app.renderInvalidForm(w, r, "login.html", form)
 			return
 		} else if errors.Is(err, auth.ErrAccountIsBanned) {
-			app.addNotes(r.Context(), "Your account is banned")
+			app.addErrorNotes(r.Context(), "Your account is banned")
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 		}
 		app.serverError(w, err)
@@ -394,11 +394,11 @@ func (app *application) handleOrder(w http.ResponseWriter, r *http.Request) {
 	newOrder, err := order.Create(app.db, form.PriceID, form.DeliveryMethodID, customer.ID, form.Details)
 	if err != nil {
 		if errors.Is(err, order.ErrNotEnoughBalance) {
-			app.addNotes(r.Context(), "Not enough balance!")
+			app.addErrorNotes(r.Context(), "Not enough balance!")
 			app.redirectBack(w, r)
 			return
 		} else if errors.Is(err, order.ErrCustomerIsVendor) {
-			app.addNotes(r.Context(), "You can't order your own product!")
+			app.addErrorNotes(r.Context(), "You can't order your own product!")
 			app.redirectBack(w, r)
 			return
 		} else {
@@ -510,7 +510,7 @@ func (app *application) handleWithdrawal(w http.ResponseWriter, r *http.Request)
 	form.CheckField(validate.ValidXMRAddress(form.Address), "Address", "Not a valid XMR-address")
 	form.CheckField(form.AmountFiat >= 10, "AmountFiat", "Minimum withdrawal amount is 10€")
 	if !form.Valid() {
-		app.addNotes(r.Context(), "Minimum withdrawal amount is 10€!")
+		app.addErrorNotes(r.Context(), "Minimum withdrawal amount is 10€!")
 		app.renderInvalidForm(w, r, "wallet.html", form)
 		return
 	}
@@ -519,7 +519,7 @@ func (app *application) handleWithdrawal(w http.ResponseWriter, r *http.Request)
 	amount, err := payment.WithdrawFunds(app.db, user.ID, form.Address, payment.Fiat2XMR(form.AmountFiat))
 	if errors.Is(err, payment.ErrNotEnoughBalanceToWithdraw) {
 		form.SetError("Minimum withdrawal amount is 10€")
-		app.addNotes(r.Context(), "Not enough balance!")
+		app.addErrorNotes(r.Context(), "Not enough balance!")
 		app.renderInvalidForm(w, r, "wallet.html", form)
 		return
 	} else if err != nil {
@@ -791,7 +791,7 @@ func (app *application) handleVendorPledge(w http.ResponseWriter, r *http.Reques
 
 	// Require pgp key to become vendor
 	if user.PgpKey == nil {
-		app.addNotes(r.Context(), "pgp is required from vendors!")
+		app.addErrorNotes(r.Context(), "pgp is required from vendors!")
 		app.redirectBack(w, r)
 		return
 	}
@@ -813,9 +813,9 @@ func (app *application) handleVendorPledge(w http.ResponseWriter, r *http.Reques
 
 	if _, err := pledge.Create(app.db, user.ID, logoFilename); err != nil {
 		if errors.Is(err, pledge.ErrNotEnoughBalance) {
-			app.addNotes(r.Context(), err.Error())
+			app.addErrorNotes(r.Context(), err.Error())
 		} else if errors.Is(err, pledge.ErrUserIsAlreadyVendor) {
-			app.addNotes(r.Context(), err.Error())
+			app.addErrorNotes(r.Context(), err.Error())
 		} else {
 			app.serverError(w, err)
 			return

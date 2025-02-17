@@ -242,7 +242,7 @@ hr {
 }
 
 .note {
-	background-color: lightpink;
+	background-color: lightgreen;
 	color: black;
 	padding: 10px;
 	border-radius: 10px;
@@ -251,5 +251,12 @@ hr {
 	margin-bottom: 2em;
 }
 
-
-
+.note--error {
+	background-color: lightpink;
+	color: black;
+	padding: 10px;
+	border-radius: 10px;
+	width: 80vw;
+	text-align: center;
+	margin-bottom: 2em;
+}

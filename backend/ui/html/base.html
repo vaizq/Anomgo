@@ -17,7 +17,11 @@
     {{if .Notes}}
     <div class="centered gap--m">
     {{range .Notes}}
-        <p class="note">{{.}}</p>
+            {{if .IsError}}
+                <p class="note--error">{{.Message}}</p>
+            {{else}}
+                <p class="note">{{.Message}}</p>
+            {{end}}
     {{end}}
     </div>
     {{end}}

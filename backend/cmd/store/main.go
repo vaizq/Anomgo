@@ -45,6 +45,7 @@ func main() {
 
 	gob.Register(captcha.Solution{})
 	gob.Register(uuid.UUID{})
+	gob.Register([]Note{})
 
 	if err := translate.LoadTranslations(); err != nil {
 		log.Error.Fatalf("Failed to load translations: %s\n", err.Error())

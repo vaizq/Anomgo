@@ -132,12 +132,17 @@ func (app *application) render(w http.ResponseWriter, req *http.Request, status 
 	buf.WriteTo(w)
 }
 
+type Note struct {
+	Message string
+	IsError bool
+}
+
 type templateData struct {
 	Form  any
 	Data  map[string]any
 	User  *model.User
 	Lang  string
-	Notes []string
+	Notes []Note
 }
 
 func (app *application) newTemplateData(req *http.Request, data map[string]any) *templateData {
@@ -167,7 +172,7 @@ func (app *application) newTemplateData(req *http.Request, data map[string]any) 
 	}()
 
 	// Notes are only viewed once
-	notes, _ := app.sessionManager.Pop(req.Context(), "notes").([]string)
+	notes, _ := app.sessionManager.Pop(req.Context(), "notes").([]Note)
 
 	return &templateData{
 		Data:  data,

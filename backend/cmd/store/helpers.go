@@ -91,13 +91,29 @@ func (app *application) validateCaptcha(ctx context.Context, answer CaptchaAnswe
 	return math.Pow(float64(solution.X-answer.X), 2)+math.Pow(float64(solution.Y-answer.Y), 2) < math.Pow(float64(solution.Radius), 2)
 }
 
-func (app *application) addNotes(ctx context.Context, notes ...string) {
+func (app *application) addNotes(ctx context.Context, messages ...string) {
 	const key = "notes"
-	tmp, ok := app.sessionManager.Get(ctx, key).([]string)
+	tmp, ok := app.sessionManager.Get(ctx, key).([]Note)
 	if !ok {
-		tmp = notes
-	} else {
-		tmp = append(tmp, notes...)
+		tmp = []Note{}
+	}
+
+	for _, msg := range messages {
+		tmp = append(tmp, Note{msg, false})
+	}
+
+	app.sessionManager.Put(ctx, key, tmp)
+}
+
+func (app *application) addErrorNotes(ctx context.Context, messages ...string) {
+	const key = "notes"
+	tmp, ok := app.sessionManager.Get(ctx, key).([]Note)
+	if !ok {
+		tmp = []Note{}
+	}
+
+	for _, msg := range messages {
+		tmp = append(tmp, Note{msg, true})
 	}
 
 	app.sessionManager.Put(ctx, key, tmp)
