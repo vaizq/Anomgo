@@ -164,7 +164,7 @@ func (app *application) newTemplateData(req *http.Request, data map[string]any) 
 	lang := func() string {
 		res := app.sessionManager.GetString(req.Context(), "Lang")
 		if res == "" {
-			res = translate.Fi
+			res = translate.En
 			app.sessionManager.Put(req.Context(), "Lang", res)
 			return res
 		}

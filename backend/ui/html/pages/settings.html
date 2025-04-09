@@ -40,6 +40,20 @@
             <button type="submit">{{T "Submit" $.Lang}}</button>
         </div>
     </form>
+    {{if not .User.PgpKey}}
+    <form class="form--basic pop padding--m" action="/user/enable2fa" method="post">
+        <div class="row-centered padding--m">
+            <h2>{{T "Enable 2FA" $.Lang}}</h2>
+        </div>
+        <div class="form__field">
+            <label for="pgpKey">{{T "pgp public key (optional for customers)" $.Lang}}</label>
+            <textarea id="pgpKey" name="PgpKey" spellcheck="false"></textarea>
+        </div>
+        <div class="form__field--right">
+            <button type="submit">{{T "Submit" $.Lang}}</button>
+        </div>
+    </form>
+    {{end}}
     {{if .Form}}
     <div class="centered">
         {{range $key, $val := .Form.FieldErrors}}

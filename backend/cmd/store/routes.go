@@ -65,6 +65,7 @@ func (app *application) route() http.Handler {
 	r.Handler(http.MethodPost, "/user/withdrawal", requireAuth.ThenFunc(app.handleWithdrawal))
 	r.Handler(http.MethodPost, "/vendor/pledge", requireAuth.ThenFunc(app.handleVendorPledge))
 	r.Handler(http.MethodPost, "/user/change-password", requireAuth.ThenFunc(app.handleChangePassword))
+	r.Handler(http.MethodPost, "/user/enable2fa", requireAuth.ThenFunc(app.handleEnable2FA))
 	r.Handler(http.MethodPost, "/ticket/create", requireAuth.ThenFunc(app.handleTicket))
 	r.Handler(http.MethodPost, "/ticket/response", requireAuth.ThenFunc(app.handleTicketResponse))
 

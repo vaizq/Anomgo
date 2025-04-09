@@ -39,6 +39,11 @@ type changePasswordForm struct {
 	validate.Validator
 }
 
+type enable2FAForm struct {
+	PgpKey string
+	validate.Validator
+}
+
 type createListingForm struct {
 	Title           string
 	Description     string

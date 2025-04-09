@@ -56,6 +56,25 @@ func (um UserModel) UpdatePasswordHash(ec db.ExecContext, username string, oldHa
 	return user, nil
 }
 
+func (um UserModel) UpdatePgpKey(ec db.ExecContext, id uuid.UUID, pgpKey string) (*User, error) {
+	query := `
+		UPDATE users 
+		SET pgp_key = $2 
+		WHERE id = $1
+		RETURNING username, pgp_key, prev_login, created_at
+	`
+
+	user := &User{
+		ID: id,
+	}
+
+	err := ec.QueryRow(query, id, pgpKey).Scan(&user.Username, &user.PgpKey, &user.PrevLogin, &user.CreatedAt)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
 func (um UserModel) UpdatePrevLogin(ec db.ExecContext, id uuid.UUID) (*User, error) {
 	query := `
 		UPDATE users 

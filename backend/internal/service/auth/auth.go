@@ -10,6 +10,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -172,4 +173,11 @@ func ChangePassword(db *sql.DB, username string, oldPassword string, newPassword
 	}
 
 	return user, nil
+}
+
+func Enable2FA(db *sql.DB, userID uuid.UUID, pgpKey string) (*model.User, error) {
+	if !pgp.PublicKeyIsValid(pgpKey) {
+		return nil, ErrInvalidPGPKey
+	}
+	return model.M.User.UpdatePgpKey(db, userID, pgpKey)
 }

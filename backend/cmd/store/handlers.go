@@ -263,6 +263,36 @@ func (app *application) handleChangePassword(w http.ResponseWriter, r *http.Requ
 	http.Redirect(w, r, "/user/settings", http.StatusSeeOther)
 }
 
+func (app *application) handleEnable2FA(w http.ResponseWriter, r *http.Request) {
+	if err := r.ParseForm(); err != nil {
+		log.Info.Println(err.Error())
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	form := new(enable2FAForm)
+	if err := app.schemaDecoder.Decode(form, r.PostForm); err != nil {
+		log.Info.Println(err.Error())
+		app.clientError(w, http.StatusBadRequest)
+		return
+	}
+
+	user := app.loggedInUser(r)
+
+	if _, err := auth.Enable2FA(app.db, user.ID, form.PgpKey); err != nil {
+		if errors.Is(err, auth.ErrInvalidPGPKey) {
+			app.addErrorNotes(r.Context(), "Invalid PGP key!")
+			app.clientError(w, http.StatusBadRequest)
+			return
+		}
+		app.serverError(w, err)
+		return
+	}
+
+	app.addNotes(r.Context(), "2FA enabled.")
+	http.Redirect(w, r, "/user/settings", http.StatusSeeOther)
+}
+
 func (app *application) handleCreateListing(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseMultipartForm(maxMemory); err != nil {
 		log.Info.Printf("unable to parse form %s\n", err.Error())

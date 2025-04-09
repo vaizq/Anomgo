@@ -1,21 +1,13 @@
-## TODO
+# Gomarket
+Anonymous online marketplace written in golang.
+Gomarket is an educational project for myself to learn more about golang, crypto and security.
+Gomarket is NOT designed for production use! Only to study this kind of platforms.
 
-## DONE
-- Admin panel (handle disputes, ban users, remove listings)
-- Gracefull shutdown
-- Fix product page layout
-- Track when vendors have previously been logged-in
-- Fix vendor page layout
-- Split wallet and settings pages
-- Make info and error loggers availabe for modules
-- Error resilient monero price updation
-- FAQ
-- Display our XMR price in the footer
-- Make icons cacheable for browsers
-
-## NICE TO HAVE
-- Vendor online "lamp"
-- Make reusable and better scaling containers
-- Optional image loading
-- Tiliote
-- Use icons for header elements
+## Features
+- Monero support
+- Escrow
+- Optional PGP based 2FA
+- Captcha
+- No javascript
+- Pledge for vendors
+- LLM generated translations (English native)

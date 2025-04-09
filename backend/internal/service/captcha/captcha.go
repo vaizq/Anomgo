@@ -38,6 +38,10 @@ func New() Captcha {
 	}
 }
 
+func Distance(a, b image.Point) float64 {
+	return math.Sqrt(math.Pow(float64(a.X-b.X), 2) + math.Pow(float64(a.Y-b.Y), 2))
+}
+
 func drawCircle(img *image.RGBA, center image.Point, radius int, color color.RGBA, tickness int) {
 	r := float64(radius)
 	da := 1 / r / 10
@@ -77,12 +81,29 @@ func createCaptcha(img *image.RGBA, radius int, tickness int, numCircles int) im
 		return image.Point{rand.Intn(img.Bounds().Max.X-2*radius) + radius, rand.Intn(img.Bounds().Max.Y-2*radius) + radius}
 	}
 
+	centers := []image.Point{}
+
 	for i := 0; i < numCircles; i++ {
-		center := randPoint()
+		centers = append(centers, randPoint())
+	}
+
+	for _, center := range centers {
 		drawCircle(img, center, radius, black, tickness)
 	}
 
-	center := randPoint()
-	drawArch(img, center, radius, black, tickness, 1.0, 6.3)
-	return center
+	p := image.Point{}
+	found := false
+	for i := 0; i < 10 && !found; i++ {
+		p = randPoint()
+		found = true
+		for _, center := range centers {
+			if Distance(p, center) < float64(radius) {
+				found = false
+				break
+			}
+		}
+	}
+
+	drawArch(img, p, radius, black, tickness, 1.0, 6.3)
+	return p
 }
