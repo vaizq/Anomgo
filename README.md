@@ -44,6 +44,7 @@ You can explore a live demo running on monero-stagenet at:
 ---
 
 ## ⚙️ Build
+
 - Run [moneropay](https://moneropay.eu).
 - Install golang and docker
 ```
