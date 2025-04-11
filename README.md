@@ -30,7 +30,7 @@ By building one from scratch, I was able to dive deep into **Golang**, **web sec
 ## 🌍 Demo
 
 You can explore a live demo running on monero-stagenet at:
-➡️ [www.anomgo.com](http://www.anomgo.com)
+➡️ [www.anomgo.online](http://www.anomgo.online)
 
 ---
 
@@ -47,9 +47,10 @@ You can explore a live demo running on monero-stagenet at:
 
 - Run [moneropay](https://moneropay.eu).
 - Install golang and docker
+- Configure .env (see [docker-compose.yaml](./docker-compose.yml) for necessary variables)
 ```
-$ docker compose up
-$ cd backend && make run
+docker compose up
+cd backend && make run
 ```
 
 ---
