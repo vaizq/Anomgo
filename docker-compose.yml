@@ -32,4 +32,4 @@ services:
       - db 
     volumes:
       - ./migrations:/migrations
-    command: ["-path", "/migrations", "-database",  "postgresql://${DB_USER}:${DB_PASS}@db:5432/${DB_NAME}?sslmode=disable", "up"]
+    command: ["-path", "/migrations", "-database",  "${DSN}", "up"]
